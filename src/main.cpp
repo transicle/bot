@@ -12,6 +12,7 @@ using json = nlohmann::json;
 
 std::vector<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
+    { "beginner", "Get a beginner's guide to C++", cmd::beginnerCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
     { "close", "Close a ticket or forum post", cmd::closeCommand },
     { "ticket", "Open a ticket", cmd::ticketCommand, { dpp::command_option(dpp::command_option_type::co_user, "participant", "Add participant", false) }},

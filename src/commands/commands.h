@@ -63,6 +63,13 @@ namespace cmd
      * @param event slash command event
      */
     void ruleCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+    
+    /**
+     * @brief Replies with a beginner's guide to C++
+     * @param bot cluster
+     * @param event slash command event
+     */
+    void beginnerCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     namespace utils
     {
