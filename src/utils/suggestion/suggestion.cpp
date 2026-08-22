@@ -9,7 +9,18 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
         bot.message_delete(event.msg.id, event.msg.channel_id);
         if (event.msg.content.empty())
         {
-            event.reply(dpp::message("You cannot send an empty suggestion. Please add text to your message.").set_flags(dpp::m_ephemeral));
+            bot.message_delete(event.msg.id, event.msg.channel_id);
+            bot.message_create(dpp::message(event.msg.channel_id, 
+                "You cannot send an empty suggestion. Please add text to your message."),
+                [&bot](const dpp::confirmation_callback_t& cb) {
+                    if (!cb.is_error()) {
+                        const auto& msg = std::get<dpp::message>(cb.value);
+                        bot.start_timer([&bot, msg](dpp::timer timer) {
+                            bot.message_delete(msg.id, msg.channel_id);
+                            bot.stop_timer(timer);
+                        }, 5);
+                    }
+                });
             return;
         }
         dpp::embed result = dpp::embed()
